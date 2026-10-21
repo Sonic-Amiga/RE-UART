@@ -35,6 +35,9 @@ Since /DOUT line is not available on the user ROM socket, it should be wired fro
 It is also strongly adviced to wire "EXT READY" (reset) connector to /DCLO and /ACLO generation circuit of your machine
 in order to guarantee stable bootup.
 
+**!!! WARNING !!!** RE-mulator's serial port uses raw 3.3V levels, so use a converter module, e. g. USB-UART or MAX232,
+for connecting to your computer or terminal !!!
+
 # Configuration
 
 Jumpers on RE-mulator board are used to select UART base address and baud rate, similar to jumpers or
