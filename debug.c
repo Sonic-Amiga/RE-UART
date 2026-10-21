@@ -569,61 +569,6 @@ void dbg_write(unsigned char data)
 
 //_____________________________________________________________________________
 //
-void uart_init(unsigned int baud)
-{
-    PSTM_UART puart = UART_BASE;
-
-    if (UART_BASE == UART1_BASE)
-    {
-        *RCC_APB2EN |= bRCC_UART1EN;
-        *RCC_APB2LP |= bRCC_UART1EN;
-    }
-    if (UART_BASE == UART2_BASE)
-    {
-        *RCC_APB1EN |= bRCC_UART2EN;
-        *RCC_APB1LP |= bRCC_UART2EN;
-    }
-    if (UART_BASE == UART3_BASE)
-    {
-        *RCC_APB1EN |= bRCC_UART3EN;
-        *RCC_APB1LP |= bRCC_UART3EN;
-    }
-    if (UART_BASE == UART4_BASE)
-    {
-        *RCC_APB1EN |= bRCC_UART4EN;
-        *RCC_APB1LP |= bRCC_UART4EN;
-    }
-    if (UART_BASE == UART5_BASE)
-    {
-        *RCC_APB1EN |= bRCC_UART5EN;
-        *RCC_APB1LP |= bRCC_UART5EN;
-    }
-    if (UART_BASE == UART6_BASE)
-    {
-        *RCC_APB2EN |= bRCC_UART6EN;
-        *RCC_APB2LP |= bRCC_UART6EN;
-    }
-    //
-    // Setup the controllers pins
-    // Clocks for UARTs and GPIOs should be enabled
-    //
-    IO_SET_MODE(UART_RXD);
-    IO_SET_MODE(UART_TXD);
-
-    puart->sUART_CR1    = 0;
-    puart->sUART_BRR    = (BSP_APB_CLOCK + baud/2) / baud;
-    puart->sUART_CR3    = 0;
-    puart->sUART_CR2    = bUART_STOP_2;
-    puart->sUART_GTPR   = 0;
-
-    puart->sUART_CR1 = bUART_UE
-                     | bUART_TE
-                     | bUART_RE;
-    puart->sUART_DR = 0x20;
-}
-
-//_____________________________________________________________________________
-//
 void dbg_flush(void)
 {
     PSTM_UART puart = UART_BASE;

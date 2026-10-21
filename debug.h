@@ -14,8 +14,6 @@
 #ifndef _DEBUG_H_
 #define _DEBUG_H_
 
-void uart_init(unsigned int baud);
-
 #if DBG_ENABLE
 int     dbg_vprintf (const char *fmt, va_list ap);
 int     dbg_printf(const char *fmt, ...);
