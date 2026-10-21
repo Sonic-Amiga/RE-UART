@@ -13,6 +13,7 @@ Due to limits of REmulator hardware, and also because the project is developed i
 the emulation is not complete. The following features are currently missing:
 
 * RTS/CTS flow control
+* Proper reset on /INIT signal
 * Loopback test mode
 * Interrupts
 
