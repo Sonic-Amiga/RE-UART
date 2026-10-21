@@ -12,14 +12,15 @@ the goal of diagnosing and repairing their broken MC1201.02 boards.
 Due to limits of REmulator hardware, and also because the project is developed in a spare time,
 the emulation is not complete. The following features are currently missing:
 
+* RTS/CTS flow control
 * Loopback test mode
 * Interrupts
 
 So, only simple polled mode is currently implemented, which is only enough for ROM monitor to run.
 Do not expect operating systems to work with this replacement.
 
-These limitations can be worked on at the expense of, for example, configuration jumpers, but i am not sure
-if i am going to do that. Because, again, the main purpose of this project is just troubleshooting the board.
+At least some of these limitations can be worked on at the expense of, for example, configuration jumpers, but i am
+not sure if i am going to do that. Because, again, the main purpose of this project is just troubleshooting the board.
 For permanent replacement of a missing UART chip it would be far better to develop a proper in-place substitute
 using a CPLD. Nevertheless, pull requests are welcome.
 
