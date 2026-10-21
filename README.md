@@ -1,7 +1,7 @@
 # Preface
 
-This project is a simple implementation of 1801VP1-065 UART emulator, which runs on
-[REmulator](https://github.com/1801BM1/remul) hardware. This allows to easily substitute a
+This project is a simple implementation of [1801VP1-035/065 UART](https://github.com/1801BM1/k1801/tree/master/065)
+emulator, which runs on [REmulator](https://github.com/1801BM1/remul) hardware. This allows to easily substitute a
 broken VP1 chip on MC1201 series of single-board PDP-11-compatible computers using
 user ROM socket and some additional wiring for missing signals. The project is originally
 developed for [Koszalińskie Muzeum Elektroniki Komputerowej ELKON](https://www.facebook.com/elkonelektronika/) with
