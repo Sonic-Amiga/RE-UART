@@ -77,66 +77,30 @@
 #define ROM_IMAGE_SIZE      0x2000
 #define ROM_IMAGE_SIGN      0x03
 
-//_____________________________________________________________________________
 //
-// ѕрототип функции основного цикла
+// The main loop, written in assembly, stores runtime information in this structure
+// Base address is not really runtime variable, but we pass it here because only up
+// to four arguments are passed in registers, and we don't want to bother about stack.
 //
-
 struct AppState
 {
-	unsigned short base;
-	unsigned short rxs;
-	unsigned short txs;
-	unsigned short txd;
+	unsigned short base; // Base address of the emulated UART
+	unsigned short rxs;  // Receiver status register
+	unsigned short txs;  // Transmitter status register
 };
+
+//_____________________________________________________________________________
+//
+// Prototype of the main loop function
+//
 
 typedef void (*APP_LOOP_PTR)(PSTM_UART, PSTM_PIO, PSTM_PIO, struct AppState *);
 void app_rom_loop(PSTM_UART, PSTM_PIO, PSTM_PIO, struct AppState *);
 void app_end_loop(void);
 
-#pragma pack(push, 4)
-typedef struct _ROM_DESC
-{
-    //
-    // —обственно данные дл€ вывода
-    // ƒолжны быть представлены в "формате программатора",
-    // то есть без инверсии адресов и данных
-    //
-    const unsigned char data[ROM_IMAGE_SIZE];
-    //
-    //  од микросхемы соответствует инвертированному состо€нию на шине адреса:
-    //
-    // 111  - 000000..017777 (диапазон в адресном пространстве)
-    // 110  - 020000..037777
-    // 101  - 040000..057777
-    // 100  - 060000..077777
-    // 011  - 100000..117777
-    // 010  - 120000..137777
-    // 001  - 140000..157777
-    // 000  - 160000..177777
-    //
-    const unsigned char code;
-    //
-    // —игнатура прошивки - байт со значением ROM_IMAGE_SIGN
-    //
-    const unsigned char sign;
-    //
-    // Ќомера chip select-ов дл€ конфигураций 0..13
-    //  0x00 - активируетс€ на сигнал выбора CS
-    //  0x11 - активируетс€ на сигнал выбора XCS1
-    //  0x22 - активируетс€ на сигнал выбора XCS2
-    //  0x33 - активируетс€ на сигнал выбора XCS3
-    //
-    // ќдна прошивка не может соответствовать нескольким CSx
-    //
-    const unsigned char csel[14];
-
-} ROM_DESC, *PROM_DESC;
-#pragma pack(pop)
-
 //_____________________________________________________________________________
 //
-// ќпредел€ем значение контактов портов
+// Assignment of I/O port pins
 //
 #define _MCO        (IO_FUNC_AF0 | IO_MODE_OUTPUT       | IO_ATTR_50MHZ   | IO_PORT_A | 8)
 #define _TXD        (IO_FUNC_AF7 | IO_MODE_OUTPUT       | IO_ATTR_25MHZ   | IO_PORT_A | 9)

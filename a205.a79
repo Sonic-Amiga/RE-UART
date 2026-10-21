@@ -162,7 +162,6 @@ bsp_thunk_handler:                                              //
 #define STATE_ADDR      0
 #define STATE_RXS		2
 #define STATE_TXS		4
-#define STATE_TXD		6
 
 // Our control GPIO bit assignments
 #define RPLY_BIT        0
@@ -290,7 +289,6 @@ app_rom_loop:
 // We're doing TX data write here (Offset 6)
 //
                 str		R6,	[R0, #UART_DR]						// Send the data out
-                strh	R6, [R3, #STATE_TXD]					// Also store it in case of read back
                 b.n		@@Reply
 
 // Rx status register write.
@@ -317,8 +315,8 @@ app_rom_loop:
 //
 // We're doing TX data read here (base + 6)
 //
-				ldrh	R6, [R3, #STATE_TXD]					// For now return last written character
-				b.n		@@RdReply
+				movs	R6, 0360								// Return a fixed value of 0360. This is verified against a
+				b.n		@@RdReply								// real VP1-065 chip.
 
 // Read Rx status register
 @@RdRXS:		ldrh	R6, [R3, #STATE_RXS]					// This presets interrupt enable bit

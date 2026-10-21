@@ -17,7 +17,7 @@
 //_____________________________________________________________________________
 //
 struct AppState app_config;
-unsigned int    app_copy[1024];
+unsigned int    app_copy[1024]; // RAM space for our main loop assembly code
 
 #define IO_OUTPUT               bPIO_MODE_OUTPUT
 #define IO_INPUT                bPIO_MODE_INPUT
@@ -395,7 +395,6 @@ static void app_read_config(void)
 	app_config.base = base;
 	app_config.rxs  = 0;
 	app_config.txs  = 0;
-	app_config.txd  = 0;
 
     uart_init(baud);
     dbg_printf("\r\nPorts initialized, address 0%o, serial %d 8n2\r\n",
