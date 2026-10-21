@@ -354,21 +354,20 @@ static void app_start_proc(void)
     APP_LOOP_PTR addr;
 
     //
-    // Выполняем копирование процедуры в ОЗУ для
-    // получения макисмального быстродействия
+    // Copy our main program to RAM in order to get maximum performance
     //
     start = (unsigned char*)(((unsigned int)&app_rom_loop) & ~1);
     end   = (unsigned char*)(((unsigned int)&app_end_loop) & ~1);
     bsp_memcpy(app_copy, start, end - start + 2*sizeof(unsigned int));
     //
-    // Снимаем сигнал внешнего сброса
+    // Deassert external reset signal
     //
     IO_PORT_ODC(_READY);
     //
-    // Выполняем переход на циклическую процедуру
+    // Run our emulation loop
     //
 #if RUN_IN_ROM
-    // Отладочный вариант исполнения из флеш-памяти
+    // Run the loop in flash memory - for debugging.
     addr = &app_rom_loop;
 #else
     //
